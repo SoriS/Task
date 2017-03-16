@@ -41,75 +41,47 @@ var mapSecond = function (element) {
     }
 }
 
+// var initData = require('./excelModule')(mongoClient);
 
-var getData = function (mongoClient) {
+// app.get("/api/resultMeetings3", function (req, res) {
 
-    mongoxlsx.xlsx2MongoData(xlsx, modelOfExcel, function (err, data) {
+//         mongoClient.connect(url, function (err, db) {
+//             db.collection("resultMeetings3").distinct("Country", function (err, user) {
+//                 console.log("Result Find:", user.length);
+//                 db.collection("resultMeetings3").find({ Country: user[1] }).toArray(function (err, user) {
+//                     res.send(user)
+//                     console.log("Result Find:", user.length);
+//                     db.close();
+//                 })
+//             });
+//         });
+// });
+// app.get("/api/resultMeetings3?from=2017-01-22&to=2017-01-26", function (req, res) {
 
-        var resultsEmails = data[1].map(mapSecond);
-        var resultsMeetings = data[0].map(mapFirst);
+//         mongoClient.connect(url, function (err, db) {
+//             db.collection("resultMeetings3").distinct("Country", function (err, user) {
+//                 console.log("Result Find2:", user.length);
+//                 db.collection("resultMeetings3").find({ Country: user[2] }).toArray(function (err, user) {
+//                     res.send(user)
+//                     console.log("Result Find2:", user.length);
+//                     db.close();
+//                 })
+//             });
+//         });
+// });
+// app.get("/api/resultMeetings3?Country=${Country}", function (req, res) {
 
-        // mongoClient.connect(url, function (err, db) {
-        //     db.collection("resultMeetings3").find({ _id: objectId("58c97e433a5e199426857694") }).toArray(function (err, user) {
-        //         console.log("Result Find:", user);
-        //         db.close();
-        //     });
-        // });
-
-        // mongoClient.connect(url, function (err, db) {
-        //     db.collection("resultMeetings3").distinct("Country", function (err, user) {
-        //         console.log("Result Find:", user.length);
-        //         console.log(db.collection("resultMeetings3").find({ Country: user[1] }).toArray(function (err, user) {
-        //             console.log("Result Find:", user.length);
-        //             db.close();
-        //         }))
-        //     });
-        // });
-
-
-
-    });
-
-}
-app.get("/api/resultMeetings3", function (req, res) {
-
-        mongoClient.connect(url, function (err, db) {
-            db.collection("resultMeetings3").distinct("Country", function (err, user) {
-                console.log("Result Find:", user.length);
-                db.collection("resultMeetings3").find({ Country: user[1] }).toArray(function (err, user) {
-                    res.send(user)
-                    console.log("Result Find:", user.length);
-                    db.close();
-                })
-            });
-        });
-});
-app.get("/api/resultMeetings3?from=2017-01-22&to=2017-01-26", function (req, res) {
-
-        mongoClient.connect(url, function (err, db) {
-            db.collection("resultMeetings3").distinct("Country", function (err, user) {
-                console.log("Result Find2:", user.length);
-                db.collection("resultMeetings3").find({ Country: user[2] }).toArray(function (err, user) {
-                    res.send(user)
-                    console.log("Result Find2:", user.length);
-                    db.close();
-                })
-            });
-        });
-});
-app.get("/api/resultMeetings3?Country=${Country}", function (req, res) {
-
-        mongoClient.connect(url, function (err, db) {
-            db.collection("resultMeetings3").distinct("Country", function (err, user) {
-                console.log("Result Find3:", user.length);
-                db.collection("resultMeetings3").find({ Country: user[3] }).toArray(function (err, user) {
-                    res.send(user)
-                    console.log("Result Find3:", user.length);
-                    db.close();
-                })
-            });
-        });
-});
+//         mongoClient.connect(url, function (err, db) {
+//             db.collection("resultMeetings3").distinct("Country", function (err, user) {
+//                 console.log("Result Find3:", user.length);
+//                 db.collection("resultMeetings3").find({ Country: user[3] }).toArray(function (err, user) {
+//                     res.send(user)
+//                     console.log("Result Find3:", user.length);
+//                     db.close();
+//                 })
+//             });
+//         });
+// });
 
 
 app.listen(3000, function () {
