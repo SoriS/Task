@@ -52,20 +52,20 @@ var getData = function (mongoClient) {
 
         var resultEmais_Meetings = data[1].map(mapFirst);
         resultsEmails.push.apply(resultEmais_Meetings, resultsMeetings)
-        // mongoClient.connect(url, function (err, db) {
-        //     db.collection("resultMeetings55").insertMany(resultsMeetings, function (error, param) {
-        //         console.log(param);
-        //         db.close();
-        //     })
-        // })
-        // mongoClient.connect(url, function (err, db) {
-        //     db.collection("resultEmailss55").insertMany(resultsEmails, function (error, param) {
-        //         console.log(param);
-        //         db.close();
-        //     })
-        // })
+         mongoClient.connect(url, function (err, db) {
+             db.collection("resultMeetings").insertMany(resultsMeetings, function (error, param) {
+                 console.log(param);
+                 db.close();
+             })
+         })
+         mongoClient.connect(url, function (err, db) {
+             db.collection("resultEmailss").insertMany(resultsEmails, function (error, param) {
+                 console.log(param);
+                 db.close();
+             })
+         })
         mongoClient.connect(url, function (err, db) {
-            db.collection("resultEmais_Meetings55").insertMany(resultEmais_Meetings, function (error, param) {
+            db.collection("resultEmais_Meetings").insertMany(resultEmais_Meetings, function (error, param) {
                 console.log(param);
                 db.close();
             })

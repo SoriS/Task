@@ -23,7 +23,7 @@ module.exports = function (app, mongoClient) {
         console.log(from);
         console.log(to);
         mongoClient.connect(url, function (err, db) {
-            db.collection("resultEmailss").aggregate([
+            db.collection("resultEmais_Meetings").aggregate([
                 { $match: { Sent: { $gte: from, $lte: to } } },
                 { $group: { _id: "$Country", count: { $sum: 1 } } }
             ]).toArray(function (err, result) {
@@ -48,8 +48,8 @@ module.exports = function (app, mongoClient) {
     app.get('/api/getEmails', function (req, res) {
 
         mongoClient.connect(url, function (err, db) {
-            db.collection("resultEmailss").aggregate([
-                { $group: { _id: "$Country", count: { $sum: 1 } } }
+            db.collection("resultEmais_Meetings").aggregate([
+                { $group: { _id: "$Type", count: { $sum: 1 } } }
             ]).toArray(function (err, result) {
 
                 var options = {
@@ -71,7 +71,7 @@ module.exports = function (app, mongoClient) {
 
     app.get('/api/getMeetings', function (req, res) {
         mongoClient.connect(url, function (err, db) {
-            db.collection("resultMeetings").aggregate([
+            db.collection("resultEmais_Meetings").aggregate([
                 { $group: { _id: "$Country", results: { $push: "$$ROOT" } } }
             ]).toArray(function (err, result) {
 
@@ -81,19 +81,4 @@ module.exports = function (app, mongoClient) {
             })
         });
     })
-
-    // app.get("/api/resultMeetings3", function (req, res) {
-
-    //     mongoClient.connect(url, function (err, db) {
-    //         db.collection("resultMeetings3").distinct("Country", function (err, user) {
-    //             console.log("Result Find:", user.length);
-    //             db.collection("resultMeetings3").find({ Country: user[1] }).toArray(function (err, user) {
-    //                 res.send(resultMeetings3)
-    //                 console.log("Result Find:", user.length);
-    //                 db.close();
-    //             })
-    //         });
-    //     });
-
-    // });
 }

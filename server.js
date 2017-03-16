@@ -43,7 +43,8 @@ var mapSecond = function (element) {
     }
 }
 
- var initData = require('./excelModule')(mongoClient);
+
+ //var initData = require('./excelModule')(mongoClient);
 
 // app.get("/api/resultMeetings3", function (req, res) {
 
