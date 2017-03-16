@@ -27,7 +27,8 @@ var mapFirst = function (element) {
         Seller: element.Seller,
         Sent: getJsDateFromExcel(element.Sent),
         LastAction: getJsDateFromExcel(element['Last Action']),
-        Client: element.Client
+        Client: element.Client,
+        Type: new element("Emails")
     }
 }
 
@@ -37,11 +38,12 @@ var mapSecond = function (element) {
         Seller: element.Seller,
         MeetingDate: getJsDateFromExcel(element['Meeting date']),
         Client: element.Client,
-        Duration: element.Duration
+        Duration: element.Duration,
+        Type: new element("Meeting")
     }
 }
 
-// var initData = require('./excelModule')(mongoClient);
+ var initData = require('./excelModule')(mongoClient);
 
 // app.get("/api/resultMeetings3", function (req, res) {
 
@@ -91,7 +93,7 @@ app.listen(3000, function () {
 
     console.log("Сервер ожидает подключения....");
 
-    console.log("Сервер ожидает подключения...");
+    
 
 });
 

@@ -17,7 +17,9 @@ var mapFirst = function (element) {
         Seller: element.Seller,
         Sent: getJsDateFromExcel(element.Sent),
         LastAction: getJsDateFromExcel(element['Last Action']),
-        Client: element.Client
+        Client: element.Client,
+        Type: element.Emails = "Emails"
+
     }
 }
 
@@ -27,14 +29,14 @@ var mapSecond = function (element) {
         Seller: element.Seller,
         MeetingDate: getJsDateFromExcel(element['Meeting date']),
         Client: element.Client,
-        Duration: element.Duration
+        Duration: element.Duration,
+        Type: element.Meeting = "Meeting"
     }
 }
 
 var url = "mongodb://localhost:27017/ttodb";
 var modelOfExcel = null;
 var mongoxlsx = require('mongo-xlsx');
-// var mongoClient = require("mongodb").MongoClient;
 var objectId = require("mongodb").ObjectID;
 var getData = function (mongoClient) {
 
@@ -48,14 +50,22 @@ var getData = function (mongoClient) {
         var resultsEmails = data[1].map(mapFirst);
         var resultsMeetings = data[0].map(mapSecond);
 
+        var resultEmais_Meetings = data[1].map(mapFirst);
+        resultsEmails.push.apply(resultEmais_Meetings, resultsMeetings)
+        // mongoClient.connect(url, function (err, db) {
+        //     db.collection("resultMeetings55").insertMany(resultsMeetings, function (error, param) {
+        //         console.log(param);
+        //         db.close();
+        //     })
+        // })
+        // mongoClient.connect(url, function (err, db) {
+        //     db.collection("resultEmailss55").insertMany(resultsEmails, function (error, param) {
+        //         console.log(param);
+        //         db.close();
+        //     })
+        // })
         mongoClient.connect(url, function (err, db) {
-            db.collection("resultMeetings").insertMany(resultsMeetings, function (error, param) {
-                console.log(param);
-                db.close();
-            })
-        })
-        mongoClient.connect(url, function (err, db) {
-            db.collection("resultEmailss").insertMany(resultsEmails, function (error, param) {
+            db.collection("resultEmais_Meetings55").insertMany(resultEmais_Meetings, function (error, param) {
                 console.log(param);
                 db.close();
             })
