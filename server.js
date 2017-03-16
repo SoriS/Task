@@ -16,9 +16,9 @@ var xlsx = './files/reports-for-Ambu(1-31.01.2017).xlsx';
 app.use(express.static(__dirname + "/public"));
 
 
- var getJsDateFromExcel = function(Date) {
-   return Date = new Date((excelDate - (25567 + 2)) * 86400 * 1000)
-  };
+var getJsDateFromExcel = function (Date) {
+    return Date = new Date((excelDate - (25567 + 2)) * 86400 * 1000)
+};
 
 
 var mapFirst = function (element) {
@@ -83,8 +83,11 @@ var mapSecond = function (element) {
 //         });
 // });
 
+var routes = require('./app');
+
+routes(app, mongoClient);
 
 app.listen(3000, function () {
-  console.log("Сервер ожидает подключения...");
+    console.log("Сервер ожидает подключения...");
 });
 
