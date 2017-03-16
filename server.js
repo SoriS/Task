@@ -88,6 +88,10 @@ var routes = require('./app');
 routes(app, mongoClient);
 
 app.listen(3000, function () {
+
     console.log("Сервер ожидает подключения....");
+
+    console.log("Сервер ожидает подключения...");
+
 });
 
