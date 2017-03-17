@@ -19,18 +19,16 @@
     <input type="date" id="from" />
     <input type="date" id="to" />
 
-    <button onclick="getData()">Get</button>
-
 
     <div style="width: 400px; height: 400px" width="400" height="400">
 
-        <canvas id="myChart" style="width: 400px; height: 400px"></canvas>
+        <canvas id="myChart"></canvas>
 
     </div>
 
     <div style="width: 400px; height: 400px" width="400" height="400">
 
-        <canvas id="myChart2" style="width: 400px; height: 400px"></canvas>
+        <canvas id="myChart2"></canvas>
     </div>
     <table class="table table-condensed table-striped table-bordered">
         <thead>
@@ -45,57 +43,34 @@
         </tbody>
     </table>
     <script>
-                     var find = function () {
+        var charts = {
+            main: null,
+            second: null
+        }
+        var find = function () {
+            var now = new Date();
+            var from = document.getElementById('from').value || now;
+            var to = document.getElementById('to').value || now;
 
-                         var from = document.getElementById('from').value;
-                         var to = document.getElementById('to').value;
+            $.get('api/getFilter', { from, to }, function (response) {
 
-                         $.get('api/getFilter', { from, to }, function (response) {
+                if (charts.main) charts.main.destroy();
+                charts.main = new Chart(document.getElementById("myChart2"), {
+                    type: 'pie',
+                    data: response,
+                });
+            });
+            $.get('api/getEmails', { from, to }, function (response) {
 
-                             var myPieChart = new Chart(document.getElementById("myChart2"), {
-                                 type: 'pie',
-                                 data: response,
-                             });
-                         });
-                         $.get('api/getEmails', { from, to }, function (response) {
+                if (charts.second) charts.second.destroy();
+                charts.second = new Chart(document.getElementById("myChart"), {
+                    type: 'pie',
+                    data: response,
+                });
+            });
 
-                             var myPieChart = new Chart(document.getElementById("myChart"), {
-                                 type: 'pie',
-                                 data: response,
-                             });
-                         });
-                         $.get('api/getTable', { from, to }, function (response) {
-                             var rows = "";
-                             reset();
-                             $.each(response, function (index, response) {
+        }
 
-                                 rows += row(response);
-                             })
-                             $("table tbody").append(rows);
-                         });
-
-
-
-                     }
-                     var row = function (user) {
-                         return "<tr data-rowid=''><td>" + user.Type + "</td> <td>" + user.Country +
-                             "</td> <td>" + user.Sent + "</td> <td>" + user.MeetingDate + "</td>" +
-                             "<td></td></tr>";
-                     }
-                     function reset() {
-                         var form = document.forms["userForm"];
-                         form.reset();
-                         form.elements["id"].value = 0;
-                    //  var getData = function () {
-
-                    //      $.get('api/getEmails', null, function (response) {
-
-                    //          var myPieChart = new Chart(document.getElementById("myChart"), {
-                    //              type: 'pie',
-                    //              data: response,                           
-                    //          });
-                    //      });
-                    //  }
     </script>
 </body>
 

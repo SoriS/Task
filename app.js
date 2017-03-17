@@ -20,8 +20,7 @@ module.exports = function (app, mongoClient) {
     app.get('/api/getFilter', function (req, res) {
         var from = new Date(req.query['from']);
         var to = new Date(req.query['to']);
-        console.log(from);
-        console.log(to);
+
         mongoClient.connect(url, function (err, db) {
             db.collection("resultEmais_Meetings").aggregate([
                 { $match: { Sent: { $gte: from, $lte: to } } },
@@ -36,7 +35,6 @@ module.exports = function (app, mongoClient) {
                         hoverBackgroundColor: result.map(function (e) { return getRandomColor() })
                     }]
                 }
-
 
                 res.send(options)
                 db.close();
@@ -69,15 +67,16 @@ module.exports = function (app, mongoClient) {
             })
         });
     })
-    
+
     app.get('/api/getTable', function (req, res) {
         var from = new Date(req.query['from']);
         var to = new Date(req.query['to']);
         mongoClient.connect(url, function (err, db) {
             db.collection("resultEmais_Meetings").aggregate([
-                
-                 { $match: { $or: [{ Sent: { $gte: from, $lte: to } }, { MeetingDate: { $gte: from, $lte: to } }] }
-                }],(function (err, result) {
+
+                {
+                    $match: { $or: [{ Sent: { $gte: from, $lte: to } }, { MeetingDate: { $gte: from, $lte: to } }] }
+                }], (function (err, result) {
 
                     res.send(result)
                     db.close();
@@ -86,16 +85,4 @@ module.exports = function (app, mongoClient) {
         })
     });
 
-    // app.get('/api/getMeetings', function (req, res) {
-    //     mongoClient.connect(url, function (err, db) {
-    //         db.collection("resultEmais_Meetings").aggregate([
-    //             { $group: { _id: "$Country", results: { $push: "$$ROOT" } } }
-    //         ]).toArray(function (err, result) {
-
-    //             res.send(result)
-
-    //             db.close();
-    //         })
-    //     });
-    // })
 }
