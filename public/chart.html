@@ -14,22 +14,36 @@
 <body>
     <h2>Список пользователей</h2>
 
-    <button onclick="find()">filter</button>
 
-    <input type="date" id="from" />
-    <input type="date" id="to" />
+    <div class="container">
+        <div class="row">
 
+            <form>
 
-    <div style="width: 400px; height: 400px" width="400" height="400">
+                <div class="col-md-2">
 
-        <canvas id="myChart"></canvas>
+                    <input type="date" required id="from" />
+                </div>
+                <div class="col-md-2">
+                    <input type="date" required id="to" />
+                </div>
+                <div class="col-md-2">
 
+                    <button onclick="find(event)">filter</button>
+                </div>
+            </form>
+
+        </div>
+        <div class="row">
+            <div  class="col-md-6">
+                <canvas  id="myChart"></canvas>
+            </div>
+            <div  class="col-md-6">
+                <canvas id="myChart2"></canvas>
+            </div>
+        </div>
     </div>
 
-    <div style="width: 400px; height: 400px" width="400" height="400">
-
-        <canvas id="myChart2"></canvas>
-    </div>
     <table class="table table-condensed table-striped table-bordered">
         <thead>
             <tr>
@@ -47,7 +61,8 @@
             main: null,
             second: null
         }
-        var find = function () {
+        var find = function (event) {
+            event.preventDefault()
             var now = new Date();
             var from = document.getElementById('from').value || now;
             var to = document.getElementById('to').value || now;
@@ -70,7 +85,6 @@
             });
 
         }
-
     </script>
 </body>
 

@@ -22,19 +22,11 @@
                 <th>Client</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="tbody">
         </tbody>
     </table>
 
-<form onsubmit="getCountry(this)">
-        <input name="Country" type="string" />
-        <input type="submit" value="get" />
-    </form>
-    <form onsubmit="getData(this)">
-        <input name="from" type="date" />
-        <input name="to" type="date" />
-        <input type="submit" value="get" />
-    </form>
+
     <script>
         var getData = function (form) {
             var from = form['from'].value
@@ -55,9 +47,9 @@
 
         }
 
-var getCountry = function (form) {
+        var getCountry = function (form) {
             var Country = Country['Country']
-            
+
             $.ajax({
                 url: '/api/resultMeetings3?Country=${Country}',
                 type: "GET",
